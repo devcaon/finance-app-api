@@ -20,6 +20,6 @@ export class PostgresCreateUserRepository {
             'SELECT * FROM users WHERE id = $1',
             [createUserParams.id],
         )
-        return createdUser
+        return createdUser[0]
     }
 }
