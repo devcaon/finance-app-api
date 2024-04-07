@@ -25,4 +25,12 @@ app.get('/api/users/:userId', async (req, res) => {
     res.status(statusCode).send(body)
 })
 
+// app.patch('api/users/:userId', async (req, res) => {
+//     const updateUserByIdController = new UpdateUserByIdController()
+
+//     const { statusCode, body } = await updateUserByIdController.execute(req)
+
+//     res.status(statusCode).send(body)
+// })
+
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
