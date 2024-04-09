@@ -1,6 +1,7 @@
 import validator from 'validator'
 import { badRequest, ok, serverError } from './helpers.js'
 import { UpdateUserUseCase } from '../use-cases/update-user.js'
+import { EmailAlreadyInUseError } from '../errors/user.js'
 
 export class UpdateUserController {
     async execute(httpRequest) {
@@ -25,9 +26,9 @@ export class UpdateUserController {
                 (field) => !allowedFields.includes(field),
             )
 
-            if (!someFieldIsNotAllowed) {
+            if (someFieldIsNotAllowed) {
                 return badRequest({
-                    message: 'Some provided field is not allowed',
+                    message: `'Some provided field ${someFieldIsNotAllowed.field} is not allowed'`,
                 })
             }
 
@@ -58,6 +59,9 @@ export class UpdateUserController {
 
             return ok(userUpdated)
         } catch (error) {
+            if (error instanceof EmailAlreadyInUseError) {
+                return badRequest({ message: error.message })
+            }
             console.error(error)
             return serverError()
         }
