@@ -1,7 +1,12 @@
-import validator from 'validator'
 import { CreateUserUseCase } from '../use-cases/create-user.js'
-import { badRequest, created, serverError } from './helpers.js'
 import { EmailAlreadyInUseError } from '../errors/user.js'
+import { badRequest, created, serverError } from './helpers/http.js'
+import {
+    checkIfEmailIsValid,
+    checkIfPasswordIsValid,
+    emailAlreadyInUseReponse,
+    invalidPasswordResponse,
+} from './helpers/user.js'
 
 export class CreateUserController {
     async execute(httpRequest) {
@@ -22,16 +27,12 @@ export class CreateUserController {
                 }
             }
 
-            if (params.password.length < 6) {
-                return badRequest({
-                    message: 'Password must be at least 6 characters',
-                })
+            if (!checkIfPasswordIsValid(params.password)) {
+                return invalidPasswordResponse()
             }
 
-            if (!validator.isEmail(params.email)) {
-                return badRequest({
-                    message: 'Invalid e-mail. Please provide a valid one.',
-                })
+            if (!checkIfEmailIsValid(params.email)) {
+                return emailAlreadyInUseReponse()
             }
 
             // chamar use case
