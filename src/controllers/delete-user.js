@@ -2,9 +2,9 @@ import { DeleteUserUseCase } from '../use-cases/index.js'
 import {
     checkIfIdIsValid,
     invalidIdResponse,
-    notFound,
     ok,
     serverError,
+    userNotFoundResponse,
 } from './helpers/index.js'
 
 export class DeleteUserController {
@@ -22,7 +22,7 @@ export class DeleteUserController {
             const deleteUser = await deleteUserUseCase.execute(userId)
 
             if (!deleteUser) {
-                return notFound({ message: 'User not found.' })
+                return userNotFoundResponse()
             }
 
             return ok(deleteUser)
