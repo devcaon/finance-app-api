@@ -6,3 +6,4 @@ export * from './user/delete-user.js'
 
 // transaction
 export * from './transaction/create-user.js'
+export * from './transaction/get-transactions-by-user-id.js'
