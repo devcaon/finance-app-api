@@ -7,6 +7,6 @@ export class PostgresDeleteTransactionRepository {
             [TransactionId],
         )
 
-        return transaction
+        return transaction[0]
     }
 }
