@@ -44,7 +44,7 @@ export class UpdateTransactionController {
             }
 
             // vericar se type é válido
-            if (!checkIfTypeIsValid(params.type)) {
+            if (params.type && !checkIfTypeIsValid(params.type)) {
                 return invalidTypeResponse()
             }
 
