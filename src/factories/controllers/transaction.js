@@ -1,9 +1,9 @@
 import {
     CreateTransactionController,
+    DeleteTransactionController,
     GetTransactionsByUserIdController,
     UpdateTransactionController,
 } from '../../controllers/index.js'
-import { DeleteTransactionController } from '../../controllers/transaction/delete-transaction.js'
 import {
     PostgresCreateTransactionRepository,
     PostgresDeleteTransactionRepository,

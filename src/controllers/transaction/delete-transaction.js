@@ -9,15 +9,14 @@ export class DeleteTransactionController {
     constructor(deleteTransactionUseCase) {
         this.deleteTransactionUseCase = deleteTransactionUseCase
     }
-
     async execute(httpRequest) {
         try {
-            // verificar se id é valido
-            if (!checkIfIdIsValid(httpRequest.params.transactionId)) {
-                return invalidIdResponse()
-            }
+            // verificar se id passado é válido
+            const isIdValid = checkIfIdIsValid(httpRequest.params.transactionId)
 
-            // chama use case
+            if (!isIdValid) return invalidIdResponse()
+
+            // get use case
             const transaction = await this.deleteTransactionUseCase.execute(
                 httpRequest.params.transactionId,
             )
