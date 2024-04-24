@@ -11,7 +11,7 @@ export class GetUserBalanceUseCase {
 
         if (!user) {
             // if user not found
-            throw new UserNotFoundError()
+            throw new UserNotFoundError(params.userId)
         }
 
         // call user balance repository

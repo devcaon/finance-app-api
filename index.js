@@ -28,6 +28,14 @@ app.get('/api/users/:userId', async (request, response) => {
     response.status(statusCode).send(body)
 })
 
+app.get('/api/users/:userId/balance', async (request, response) => {
+    const getUserBalanceController = makeGetUserBalanceController()
+
+    const { statusCode, body } = await getUserBalanceController.execute(request)
+
+    response.status(statusCode).send(body)
+})
+
 app.post('/api/users', async (request, response) => {
     const createUserController = makeCreateUserController()
 
@@ -48,14 +56,6 @@ app.delete('/api/users/:userId', async (request, response) => {
     const deleteUserController = makeDeleteUserController()
 
     const { statusCode, body } = await deleteUserController.execute(request)
-
-    response.status(statusCode).send(body)
-})
-
-app.get('/api/users/:userId/balance', async (request, response) => {
-    const getUserBalanceController = makeGetUserBalanceController()
-
-    const { statusCode, body } = await getUserBalanceController.execute(request)
 
     response.status(statusCode).send(body)
 })
